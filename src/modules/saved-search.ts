@@ -4,7 +4,17 @@ export type SavedSearch = {
   propertyTypes: ("house" | "land" | "condo" | "townhome")[];
 };
 
-const diff = (before: SavedSearch, after: SavedSearch) => {};
+const diffString = (before: string, after: string) => {
+  if (before === after) return undefined;
+  return { before, after };
+};
+
+const diff = (before: SavedSearch, after: SavedSearch) => {
+  const result = {
+    listingType: diffString(before.listingType, after.listingType),
+  };
+  return result;
+};
 
 const ModSavedSearch = {
   diff,
