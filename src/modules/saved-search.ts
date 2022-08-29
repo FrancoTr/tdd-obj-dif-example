@@ -1,3 +1,5 @@
+import { isUndefined, omitBy } from "lodash";
+
 export type SavedSearch = {
   listingType: "rent" | "sell";
   countyIds: string[];
@@ -13,7 +15,7 @@ const diff = (before: SavedSearch, after: SavedSearch) => {
   const result = {
     listingType: diffString(before.listingType, after.listingType),
   };
-  return result;
+  return omitBy(result, isUndefined);
 };
 
 const ModSavedSearch = {
