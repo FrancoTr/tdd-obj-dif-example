@@ -16,6 +16,14 @@ describe("SavedSearch", () => {
         after: "rent",
       },
     };
-    expect(ModSavedSearch.diff(before, after)).toEqual(result);
+    expect(ModSavedSearch.diff(before, after)).toMatchObject(result);
+  });
+
+  test("ignores equal string values", () => {
+    const before: SavedSearch = buildSavedSearch();
+    const after: SavedSearch = buildSavedSearch();
+
+    const result = {};
+    expect(ModSavedSearch.diff(before, after)).toMatchObject(result);
   });
 });
