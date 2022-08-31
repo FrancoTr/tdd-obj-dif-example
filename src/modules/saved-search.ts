@@ -21,7 +21,7 @@ const diffArray = (before: string[], after: string[]) => {
 const diff = (before: SavedSearch, after: SavedSearch) => {
   const result = {
     listingType: diffString(before.listingType, after.listingType),
-    countyIds: diffArray(before.propertyTypes, after.propertyTypes),
+    countyIds: diffArray(before.countyIds, after.countyIds),
     propertyTypes: diffArray(before.propertyTypes, after.propertyTypes)
   };
   return omitBy(result, isUndefined);
