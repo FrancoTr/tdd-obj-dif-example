@@ -1,4 +1,4 @@
-import { isUndefined, omitBy } from "lodash";
+import { difference, isUndefined, omitBy } from "lodash";
 
 export type SavedSearch = {
   listingType: "rent" | "sell";
@@ -11,9 +11,17 @@ const diffString = (before: string, after: string) => {
   return { before, after };
 };
 
+const diffArray = (before: string[], after: string[]) => {
+  return {
+    added: difference(after, before),
+    removed: difference(before, after)
+  }
+}
+
 const diff = (before: SavedSearch, after: SavedSearch) => {
   const result = {
     listingType: diffString(before.listingType, after.listingType),
+    propertyTypes: diffArray(before.propertyTypes, after.propertyTypes)
   };
   return omitBy(result, isUndefined);
 };
