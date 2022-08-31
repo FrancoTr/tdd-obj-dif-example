@@ -26,4 +26,17 @@ describe("SavedSearch", () => {
     const result = {};
     expect(ModSavedSearch.diff(before, after)).toMatchObject(result);
   });
+
+  test("detect removals from array values", () => {
+    const before: SavedSearch = { ...buildSavedSearch(), countyIds: ['id-1'] };
+    const after: SavedSearch = { ...buildSavedSearch(), countyIds: [] };
+
+    const result = {
+      countyIds: {
+        added: [],
+        removed: ['id-1'],
+      },
+    };
+    expect(ModSavedSearch.diff(before, after)).toMatchObject(result);
+  });
 });
