@@ -3,5 +3,8 @@
   "editor.formatOnSave": true,
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
-  }
+  },
+  "prettier.printWidth": 90,
+  "javascript.format.semicolons": "insert",
+  "typescript.format.semicolons": "insert"
 }
