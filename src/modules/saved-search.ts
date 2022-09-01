@@ -15,15 +15,24 @@ const diffArray = (before: string[], after: string[]) => {
   return {
     added: difference(after, before),
     removed: difference(before, after)
-  }
-}
+  };
+};
 
-const diff = (before: SavedSearch, after: SavedSearch) => {
-  const result = {
+type DiffableObject = Record<string, string | string[]>;
+
+const diff = <TObject extends DiffableObject>(before: TObject, after: TObject) => {
+  /* const result = {
     listingType: diffString(before.listingType, after.listingType),
     countyIds: diffArray(before.countyIds, after.countyIds),
     propertyTypes: diffArray(before.propertyTypes, after.propertyTypes)
-  };
+  }; */
+
+  const entries = Object.entries(before).map(([key, value]) => {
+    if (typeof value === 'string') return [key, diffString(value, after[key] as string)];
+    return [key, diffArray(value, after[key] as string[])];
+  });
+  const result = Object.fromEntries(entries);
+
   return omitBy(result, isUndefined);
 };
 
