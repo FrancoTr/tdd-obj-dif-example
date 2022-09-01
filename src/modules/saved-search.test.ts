@@ -39,4 +39,19 @@ describe("SavedSearch", () => {
     };
     expect(ModSavedSearch.diff(before, after)).toMatchObject(result);
   });
+
+  test("detect additions from array values", () => {
+    const before: SavedSearch = { ...buildSavedSearch(), countyIds: [] };
+    const after: SavedSearch = { ...buildSavedSearch(), countyIds: ['id-1'] };
+
+    const result = {
+      countyIds: {
+        added: ['id-1'],
+        removed: [],
+      },
+    };
+    expect(ModSavedSearch.diff(before, after)).toMatchObject(result);
+  });
 });
+
+
