@@ -10,13 +10,8 @@ describe("SavedSearch", () => {
     const before: SavedSearch = { ...buildSavedSearch(), listingType: "sell" };
     const after: SavedSearch = { ...buildSavedSearch(), listingType: "rent" };
 
-    const result = {
-      listingType: {
-        before: "sell",
-        after: "rent",
-      },
-    };
-    expect(ModSavedSearch.diff(before, after)).toMatchObject(result);
+    const diff = ModSavedSearch.diff(before, after);
+    expect(ModSavedSearch.diff(before, after)).toMatchObject(diff);
   });
 
   test("ignores equal string values", () => {
