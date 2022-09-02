@@ -19,13 +19,11 @@ const diffArray = (before: string[], after: string[]) => {
 };
 
 type DiffableObject = Record<string, string | string[]>;
+type Diff<TObject extends DiffableObject> = {
+  [K in keyof TObject]?: TObject[K] extends string[] ? { added: string[]; removed: string[]; } : { before: string, after: string; }
+};
 
-const diff = <TObject extends DiffableObject>(before: TObject, after: TObject) => {
-  /* const result = {
-    listingType: diffString(before.listingType, after.listingType),
-    countyIds: diffArray(before.countyIds, after.countyIds),
-    propertyTypes: diffArray(before.propertyTypes, after.propertyTypes)
-  }; */
+const diff = <TObject extends DiffableObject>(before: TObject, after: TObject): Diff<TObject> => {
 
   const entries = Object.entries(before).map(([key, value]) => {
     if (typeof value === 'string') return [key, diffString(value, after[key] as string)];
